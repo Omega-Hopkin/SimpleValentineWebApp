@@ -1,36 +1,36 @@
 document.getElementById("yes").addEventListener("click", function(event) {
-    event.preventDefault(); // Empêche le rechargement de la page
+    event.preventDefault(); //prevent page reload
     document.getElementById("responseInput").value = "Yes";
 
     fetch("https://formspree.io/f/xanqdklr", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ response: "Yes" }) // Envoie la réponse
+        body: JSON.stringify({ response: "Yes" }) //send response
     }).then(() => {
-        window.location.href = "index2.html"; // Redirige immédiatement
+        window.location.href = "index2.html"; //redirect
     }).catch(error => console.error("Erreur:", error));
 });
 
 
 document.getElementById('no').addEventListener('click', function(event) {
-    event.preventDefault(); // Empêcher le comportement par défaut du bouton
+    event.preventDefault(); //prevent default button behavior
 
-    // Envoyer la réponse "No" une seule fois (lors du premier clic)
+    //send "no" response only once (on first click)
     if (!this.dataset.responseSent) {
         fetch('https://formspree.io/f/xanqdklr', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ response: 'No' }) // Envoyer la réponse
+            body: JSON.stringify({ response: 'No' }) //send response
         }).catch(error => console.error('Erreur:', error));
 
-        this.dataset.responseSent = 'true'; // Marquer que la réponse a été envoyée
+        this.dataset.responseSent = 'true'; //mark that the response has been sent
     }
 
-    // Logique pour changer le texte du bouton "No"
+    //logic to change the "No" button text
     const messages = ["Are you sure?", "Pretty sure?", "Are you positive?", "Pookie please"];
-    let index = parseInt(this.dataset.messageIndex || 0); // Récupérer l'index actuel ou 0 par défaut
+    let index = parseInt(this.dataset.messageIndex || 0); //get the current index or 0 by default
 
-    this.textContent = messages[index]; // Afficher le message actuel
-    index = (index + 1) % messages.length; // Passer au message suivant
-    this.dataset.messageIndex = index; // Sauvegarder l'index pour le prochain clic
+    this.textContent = messages[index]; //display the current message
+    index = (index + 1) % messages.length; //move to the next message
+    this.dataset.messageIndex = index; //save the index for the next click
 });
