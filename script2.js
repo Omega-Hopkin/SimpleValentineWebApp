@@ -56,40 +56,40 @@
 
 
 
-//Gestion de la soumission du formulaire
+//handle form submission
 document.getElementById('commentForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Empêche la soumission par défaut du formulaire
+    event.preventDefault(); //prevent default form submission
 
-    // Récupérer les valeurs du formulaire
+    //get form values
     const name = document.querySelector('input[placeholder="Your name"]').value;
     const comment = document.getElementById('floatingTextarea2').value;
 
-    // Vérifier si le nom et le commentaire sont remplis
+    //check if name and comment are filled in
     if (!name.trim() || !comment.trim()) {
         alert("Please fill in both your name and message.");
         return;
     }
 
-    // Envoyer les données à Formspree via fetch
-    fetch('https://formspree.io/f/xanqdklr?no_redirect=1', {
+    //send data to formspree via fetch
+    fetch('https://formspree.io/f/******?no_redirect=1', { //<- put you formspree link here
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ _name: name, comment: comment }) // Ajout du nom
+        body: JSON.stringify({ _name: name, comment: comment }) //add name
     })
     .then(response => {
         if (response.ok) {
-            // Afficher une alerte de succès
+            //show success alert
             document.getElementById('alertPlaceholder').innerHTML = `
                 <div class="alert alert-success d-flex align-items-center" role="alert">
                     ✅ Response sent successfully!
                 </div>
             `;
 
-            // Effacer les champs après l'envoi
+            //clear fields after sending
             document.querySelector('input[placeholder="Your name"]').value = '';
             document.getElementById('floatingTextarea2').value = '';
 
-            // Faire disparaître l'alerte après 5 secondes
+            //hide alert after 5 seconds
             setTimeout(() => {
                 document.getElementById('alertPlaceholder').innerHTML = '';
             }, 5000);
@@ -99,7 +99,7 @@ document.getElementById('commentForm').addEventListener('submit', function(event
     })
     .catch(error => {
         console.error('Error:', error);
-        // Afficher une alerte d'erreur
+        //show error alert
         document.getElementById('alertPlaceholder').innerHTML = `
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                 ❌ An error occurred while sending the comment.
@@ -111,6 +111,3 @@ document.getElementById('commentForm').addEventListener('submit', function(event
         }, 5000);
     });
 });
-
-
-
