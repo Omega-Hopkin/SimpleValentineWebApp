@@ -105,7 +105,7 @@ const messages = ["Are you sure?", "Pretty sure?", "Are you positive?", "Pookie 
 
 ## 💡 Story Behind This
 
-Created with for a dear Twitter moot on Valentine's Day 2025. 
+Created for a dear twitter moot on Valentine's Day 2025. 
 
 ---
 
